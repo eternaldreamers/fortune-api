@@ -4,3 +4,5 @@ debug.log
 .venv/
 migrations/
 database.db
+
+**/**/__pycache__
