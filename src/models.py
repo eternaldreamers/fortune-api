@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from src.config import app
 
 db = SQLAlchemy(app)
-class Ticket(db.Model):
+class TicketModel(db.Model):
 
     __tablename = 'tickets'
 
