@@ -1,5 +1,6 @@
 from injector import singleton
 
+from src.config import app
 from src.repositories import TicketRepository
 from src.services import TicketService
 
