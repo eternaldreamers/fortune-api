@@ -13,6 +13,10 @@ flask-marshmallow = "^0.14.0"
 waitress = "^2.1.2"
 marshmallow-sqlalchemy = "^0.28.1"
 Flask-Migrate = "^3.1.0"
+connexion = {extras = ["swagger-ui"], version = "^2.14.0"}
+Flask-Assets = "^2.0"
+Flask-Injector = "^0.14.0"
+pyScss = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 

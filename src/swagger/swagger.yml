@@ -1,0 +1,54 @@
+swagger: "2.0"
+
+info:
+  title: "{{title}}"
+  version: "1.0"
+
+basePath: /
+
+paths:
+  /tickets/{id}:
+    get:
+      operationId: src.controllers.ticket.get_one
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: "Fetch a pet by ID"
+  /tickets:
+    get:
+      operationId: src.controllers.ticket.get_many
+      responses:
+        "200":
+          description: "Fetch a pet by ID"
+
+  /tickets/create:
+    post:
+      operationId: src.controllers.ticket.create
+      parameters:
+        - in: body
+          name: ticket
+          required: true
+          schema:
+            $ref: '#/definitions/Ticket'
+      responses:
+        "200":
+          description: "Fetch a pet by ID"
+
+definitions:
+  Ticket:
+    type: object
+    required:
+      - type
+      - message
+      - autor
+    properties:
+      type:
+        type: string
+      message:
+        type: string
+      autor:
+        type: string

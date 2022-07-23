@@ -5,4 +5,5 @@ debug.log
 migrations/
 database.db
 
+**/**/.webassets-cache
 **/**/__pycache__
