@@ -17,26 +17,26 @@ paths:
           type: integer
       responses:
         "200":
-          description: "Fetch a pet by ID"
+          description: "Fetch a ticket by id"
   /tickets:
     get:
       operationId: src.controllers.ticket.get_many
       responses:
         "200":
-          description: "Fetch a pet by ID"
+          description: "Fetch all tickets"
 
   /tickets/create:
     post:
       operationId: src.controllers.ticket.create
       parameters:
         - in: body
-          name: ticket
+          name: payload
           required: true
           schema:
             $ref: '#/definitions/Ticket'
       responses:
         "200":
-          description: "Fetch a pet by ID"
+          description: "create a ticket"
 
 definitions:
   Ticket:
@@ -44,11 +44,11 @@ definitions:
     required:
       - type
       - message
-      - autor
+      - author
     properties:
       type:
         type: string
       message:
         type: string
-      autor:
+      author:
         type: string

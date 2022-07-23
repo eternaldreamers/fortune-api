@@ -1,8 +1,9 @@
-from flask_marshmallow import Marshmallow
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow_sqlalchemy.fields import fields
 
-from src.config import app
+class TicketSchema(SQLAlchemyAutoSchema):
+    ticket_id = fields.Int()
+    type = fields.Str()
+    message = fields.Str()
+    author = fields.Str()
 
-ma = Marshmallow(app)
-class TicketSchema(ma.Schema):
-    class Meta:
-        fields = ('ticket_id', 'type', 'message', 'author')

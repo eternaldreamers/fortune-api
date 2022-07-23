@@ -1,16 +1,15 @@
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Integer, String, Column
 
-from src.config import app
+from src.config.sqlalchemy_ext_config import Base
 
-db = SQLAlchemy(app)
-class TicketModel(db.Model):
+class TicketModel(Base):
 
-    __tablename = 'tickets'
+    __tablename__ = 'tickets'
 
-    ticket_id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.Integer)
-    message = db.Column(db.String(250))
-    author = db.Column(db.String(50))
+    ticket_id = Column(Integer, primary_key=True)
+    type = Column(String)
+    message = Column(String(250))
+    author = Column(String(50))
 
     def __init__(self, type, message, author):
         self.type = type

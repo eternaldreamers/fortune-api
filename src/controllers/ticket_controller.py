@@ -11,7 +11,7 @@ def get_one(id, ticket_service: TicketService):
 
 @inject
 def get_many(ticket_service: TicketService):
-    return ticket_service.get_many(ticket)
+    return ticket_service.get_many()
 
 @inject
 def find_many(query, ticket_service: TicketService):
@@ -19,4 +19,5 @@ def find_many(query, ticket_service: TicketService):
 
 @inject
 def create(payload, ticket_service: TicketService):
-    return ticket_service.create(payload)
+    response = ticket_service.create(payload)
+    return jsonify(response)

@@ -1,34 +1,36 @@
 from injector import inject
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+from sqlalchemy.future.engine import Engine
 
-# from src.models import TicketModel
-# from src.schemas import TicketSchema
+from src.models import TicketModel
+from src.schemas import TicketSchema
 
 class TicketRepository:
     @inject
-    def __init__(self):
-        pass
-        # self.__ticket_model = TicketModel
-        # self.__ticket_schema = TicketSchema()
-        # self.__tickets_schema = TicketSchema(many=True)
+    def __init__(self, session: Session):
+        self.__session = session
+        self.__ticket_schema = TicketSchema()
+        self.__tickets_schema = TicketSchema(many=True)
 
     def get_one(self, id):
-        return {}
-        # ticket = self.__ticket_model.query.filter_by(ticket_id=id).first()
-        # return self.__ticket_schema.jsonify(ticket)
+        with self.__session:
+            ticket = self.__session.query(TicketModel).filter_by(ticket_id=id).one()
+            return self.__ticket_schema.dump(ticket)
 
     def get_many(self):
-        return []
-        # tickets = self.__ticket_model.query.all()
-        # result = self.__tickets_schema.dump(tickets)
-        # return result
+        with self.__session:
+            tickets = self.__session.query(TicketModel)
+            return self.__tickets_schema.dump(tickets)
 
     def find_many(self, query):
-        return []
-        # tickets = self.__ticket_model.query.filter_by(*query).all()
-        # result = self.__tickets_schema.dump(tickets)
-        # return result
+        with self.__session:
+            tickets = self.__session.query(TicketModel).filter_by(**query)
+            return self.__tickets_schema.dump(tickets)
 
     def create(self, dto):
-        return {}
-        # new_ticket = self.__ticket_model(*dto)
-        # return self.__ticket_schema.jsonify(new_ticket)
+        with self.__session:
+            new_ticket = TicketModel(**dto)
+            self.__session.add_all([new_ticket])
+            self.__session.commit()
+            return self.__ticket_schema.dump(new_ticket)
