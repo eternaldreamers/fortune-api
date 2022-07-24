@@ -1,3 +1,3 @@
-from . import auth_controller as auth
+from .auth_controller import AuthController
 from .ticket_controller import TicketController
-from . import user_controller as user
+from .user_controller import UserController

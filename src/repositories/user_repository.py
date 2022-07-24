@@ -14,9 +14,12 @@ class UserRepository:
         self.__users_schema = UserSchema(many=True)
 
     def get_one(self, id):
-        with self.__session:
-            user = self.__session.query(UserModel).filter_by(user_id=id).one()
-            return user, self.__user_schema.dump(user)
+        try:
+            with self.__session:
+                user = self.__session.query(UserModel).filter_by(user_id=id).one()
+                return user, self.__user_schema.dump(user)
+        except:
+            return None, None
 
     def find_one(self, query):
         try:
@@ -26,23 +29,30 @@ class UserRepository:
         except:
             return None, None
         
-        
-
     def get_many(self):
-        with self.__session:
-            users = self.__session.query(UserModel)
-            return users, self.__users_schema.dump(users)
+        try:
+            with self.__session:
+                users = self.__session.query(UserModel)
+                return users, self.__users_schema.dump(users)
+        except:
+            return None, None
 
     def create(self, dto):
-        with self.__session:
-            new_user = UserModel(**dto)
-            self.__session.add_all([new_user])
-            self.__session.commit()
-            return new_user, self.__user_schema.dump(new_user)
+        try:
+            with self.__session:
+                new_user = UserModel(**dto)
+                self.__session.add_all([new_user])
+                self.__session.commit()
+                return new_user, self.__user_schema.dump(new_user)
+        except:
+            return None, None
 
     def delete(self, id):
-        with self.__session:
-            user = self.__session.query(UserModel).filter_by(user_id=id).one()
-            self.__session.delete(user)
-            self.__session.commit()
-            return new_user, self.__user_schema.dump(new_user)
+        try:
+            with self.__session:
+                user = self.__session.query(UserModel).filter_by(user_id=id).one()
+                self.__session.delete(user)
+                self.__session.commit()
+                return new_user, self.__user_schema.dump(new_user)
+        except:
+            return None, None

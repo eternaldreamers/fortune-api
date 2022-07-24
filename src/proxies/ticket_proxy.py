@@ -1,5 +1,3 @@
-import datetime
-
 from injector import inject
 
 from src.controllers import TicketController

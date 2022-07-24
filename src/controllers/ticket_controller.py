@@ -19,6 +19,6 @@ class TicketController:
     def find_many(self, query):
         return self.__ticket_service.find_many(query)
 
-    @token_required
+    # @token_required
     def create(self, payload):
         return self.__ticket_service.create(payload)

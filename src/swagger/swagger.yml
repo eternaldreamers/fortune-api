@@ -9,13 +9,13 @@ basePath: /
 paths:
   /auth/login:
     post:
-      operationId: src.controllers.auth.login
+      operationId: src.proxies.auth.login
       responses:
         "200":
           description: "login user"
   /auth/logout:
     post:
-      operationId: src.controllers.auth.logout
+      operationId: src.proxies.auth.logout
       responses:
         "200":
           description: "logout user"
@@ -52,7 +52,7 @@ paths:
 
   /users/{id}:
     get:
-      operationId: src.controllers.user.get_one
+      operationId: src.proxies.user.get_one
       parameters:
         - in: path
           name: id
@@ -63,7 +63,7 @@ paths:
           description: "fetch a user by id"
   /users/one:
     post:
-      operationId: src.controllers.user.find_one
+      operationId: src.proxies.user.find_one
       parameters:
         - in: body
           name: query
@@ -75,13 +75,13 @@ paths:
           description: "get a user"
   /users:
     get:
-      operationId: src.controllers.user.get_many
+      operationId: src.proxies.user.get_many
       responses:
         "200":
           description: "fetch all users"
   /users/create:
     post:
-      operationId: src.controllers.user.create
+      operationId: src.proxies.user.create
       parameters:
         - in: body
           name: payload
@@ -93,7 +93,7 @@ paths:
           description: "create a user"
   /users/delete:
     delete:
-      operationId: src.controllers.user.delete
+      operationId: src.proxies.user.delete
       parameters:
         - in: path
           name: id

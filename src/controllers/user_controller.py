@@ -4,24 +4,23 @@ from injector import inject
 
 from src.services import UserService
 
-@inject
-def get_one(id, user_service: UserService):
-    return user_service.get_one(id)
+class UserController:
+    @inject
+    def __init__(self, user_service: UserService):
+        self.__user_service = user_service
 
-@inject
-def find_one(query, user_service: UserService):
-    _, user_json = user_service.find_many(query)
-    return user_json
+    def get_one(self, id):
+        return self.__user_service.get_one(id)
 
-@inject
-def get_many(user_service: UserService):
-    return user_service.get_many()
+    def find_one(self, query):
+        _, user_json = self.__user_service.find_many(query)
+        return user_json
 
-@inject
-def create(payload, user_service: UserService):
-    return user_service.create(payload)
+    def get_many(self):
+        return self.__user_service.get_many()
 
-@inject
-def delete(id, user_service: UserService):
-    return user_service.delete(id)
-    
+    def create(self, payload):
+        return self.__user_service.create(payload)
+
+    def delete(self, id):
+        return self.__user_service.delete(id)
