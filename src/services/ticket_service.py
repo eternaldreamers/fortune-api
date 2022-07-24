@@ -8,13 +8,17 @@ class TicketService:
         self.__ticket_repository = ticket_repository
 
     def get_one(self, id):
-        return self.__ticket_repository.get_one(id)
+        _, ticket_json = self.__ticket_repository.get_one(id)
+        return ticket_json
 
     def get_many(self):
-        return self.__ticket_repository.get_many()
+        _, tickets_json = self.__ticket_repository.get_many()
+        return tickets_json
 
     def find_many(self, query):
-        return self.__ticket_repository.find_many(query)
+        _, tickets_json = self.__ticket_repository.find_many(query)
+        return tickets_json
 
     def create(self, dto):
-        return self.__ticket_repository.create(dto)
+        _, ticket_json = self.__ticket_repository.create(dto)
+        return ticket_json

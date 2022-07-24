@@ -7,9 +7,22 @@ info:
 basePath: /
 
 paths:
+  /auth/login:
+    post:
+      operationId: src.controllers.auth.login
+      responses:
+        "200":
+          description: "login user"
+  /auth/logout:
+    post:
+      operationId: src.controllers.auth.logout
+      responses:
+        "200":
+          description: "logout user"
+
   /tickets/{id}:
     get:
-      operationId: src.controllers.ticket.get_one
+      operationId: src.proxies.ticket.get_one
       parameters:
         - in: path
           name: id
@@ -17,17 +30,16 @@ paths:
           type: integer
       responses:
         "200":
-          description: "Fetch a ticket by id"
+          description: "fetch a ticket by id"
   /tickets:
     get:
-      operationId: src.controllers.ticket.get_many
+      operationId: src.proxies.ticket.get_many
       responses:
         "200":
-          description: "Fetch all tickets"
-
+          description: "fetch all tickets"
   /tickets/create:
     post:
-      operationId: src.controllers.ticket.create
+      operationId: src.proxies.ticket.create
       parameters:
         - in: body
           name: payload
@@ -37,6 +49,59 @@ paths:
       responses:
         "200":
           description: "create a ticket"
+
+  /users/{id}:
+    get:
+      operationId: src.controllers.user.get_one
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: "fetch a user by id"
+  /users/one:
+    post:
+      operationId: src.controllers.user.find_one
+      parameters:
+        - in: body
+          name: query
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        "200":
+          description: "get a user"
+  /users:
+    get:
+      operationId: src.controllers.user.get_many
+      responses:
+        "200":
+          description: "fetch all users"
+  /users/create:
+    post:
+      operationId: src.controllers.user.create
+      parameters:
+        - in: body
+          name: payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        "200":
+          description: "create a user"
+  /users/delete:
+    delete:
+      operationId: src.controllers.user.delete
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: "delete a user"
 
 definitions:
   Ticket:
@@ -52,3 +117,16 @@ definitions:
         type: string
       author:
         type: string
+
+  User:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      admin:
+        type: boolean

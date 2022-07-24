@@ -1,23 +1,24 @@
 import datetime
 
-from flask import jsonify
 from injector import inject
 
+from src.common.decorators import token_required
 from src.services import TicketService
 
-@inject
-def get_one(id, ticket_service: TicketService):
-    return ticket_service.get_one(id)
+class TicketController:
+    @inject
+    def __init__(self, ticket_service: TicketService):
+        self.__ticket_service = ticket_service
 
-@inject
-def get_many(ticket_service: TicketService):
-    return ticket_service.get_many()
+    def get_one(self, id):
+        return self.__ticket_service.get_one(id)
 
-@inject
-def find_many(query, ticket_service: TicketService):
-    return ticket_service.find_many(query)
+    def get_many(self, ):
+        return self.__ticket_service.get_many()
 
-@inject
-def create(payload, ticket_service: TicketService):
-    response = ticket_service.create(payload)
-    return jsonify(response)
+    def find_many(self, query):
+        return self.__ticket_service.find_many(query)
+
+    @token_required
+    def create(self, payload):
+        return self.__ticket_service.create(payload)
